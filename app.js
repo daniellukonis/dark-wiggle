@@ -50,7 +50,7 @@ class EndPoint {
     this.nextDistance = 0;
 
     this.endpointRadius = 4;
-    this.endpointGrowth = -4;
+    this.endpointGrowth = 0;
     this.dotRadius = 4;
 
     this.next;
@@ -115,6 +115,7 @@ class EndPoint {
   drawConnection({context} = this) {
 
     context.save();
+    context.strokeStyle = '#00000010'
     context.translate(this.currentX, this.currentY);
     context.rotate(this.nextAngle);
     context.beginPath();
@@ -127,6 +128,7 @@ class EndPoint {
   drawDot({context} = this) {
 
     context.save();
+    context.fillStyle = '#000';
     context.translate(this.currentX, this.currentY);
     context.rotate(this.nextAngle);
     context.beginPath();
@@ -151,13 +153,13 @@ class EndPoint {
     this.angleX += this.angleXSpeed;
     this.angleY += this.angleYSpeed;
 
-    if(this.dotDistance > this.nextDistance) {
-      this.dotDistance = 0;
-      this.next.startDot();
+    // if(this.dotDistance > this.nextDistance) {
+    //   this.dotDistance = 0;
+    //   this.next.startDot();
 
-    } else if(this.dotDistance >= 1){
-      this.dotDistance += this.dotSpeed;
-    }
+    // } else if(this.dotDistance >= 1){
+    //   this.dotDistance += this.dotSpeed;
+    // }
   }
 
   startDot() {
@@ -182,7 +184,7 @@ class EndPoint {
 }
 
 const endPoints = []
-const maxPoints = 10
+const maxPoints = 50;
 for(let i = 0; i < maxPoints; i++) {
   endPoints.push(new EndPoint(canvas, context))
 }
@@ -196,11 +198,11 @@ endPoints.forEach((e, i, a) => {
   e.animate();
 })
 
-endPoints[0].startDot();
+// endPoints[0].startDot();
 
 function loop(multiple = true) {
 
-  clear && clearCanvas(canvas, context);
+  // clear && clearCanvas(canvas, context);
   endPoints.forEach(e => e.animate());
 
   multiple && requestAnimationFrame(loop);
